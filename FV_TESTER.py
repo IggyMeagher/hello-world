@@ -85,9 +85,10 @@ fruits_and_vegetables = [
 #print(len(fruits_and_vegetables))
 
 class fruit_and_veg():
-    def __init__(self, score):
+    def __init__(self, score, process):
         self.random_int = random.randint(0,76)
         self.score = score
+        self.process = process
 
     def randomfv(self):
 
@@ -102,14 +103,21 @@ class fruit_and_veg():
             print("your score is", self.score)
         else:
             print('not correct', self.score, 'is your score')
+        if self.score == 20:
+            self.process = False
+            print('well done, you have completed the test')
+        
+            
 
-    
-current_score = 0
+is_process_running = True
+current_score = 20
 
-while True:
-    random_fruit_and_veg = fruit_and_veg(current_score)
+while is_process_running == True:
+    random_fruit_and_veg = fruit_and_veg(current_score, is_process_running)
     random_fruit_and_veg.randomfv()
     current_score = random_fruit_and_veg.score
+
+
 
 
 
