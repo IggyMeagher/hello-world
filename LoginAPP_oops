@@ -1,0 +1,78 @@
+import customtkinter
+
+
+
+class LoginPage: #creating the blueprint for our LoginApp.
+    def __init__(self):
+
+        #temp
+
+        self.user = ['admin']
+        self.password = ['admin']
+        self.block = 0
+
+        #Below are the base properties for the app
+
+        self.app = customtkinter.CTk()
+        self.app.geometry('500x350')
+        customtkinter.set_appearance_mode('dark')
+        customtkinter.set_default_color_theme('dark-blue') #cool feature of custom tkinter, modern default themes and light/dark mode
+
+        #below we are defining the properties for our widjets
+
+        self.frame = customtkinter.CTkFrame(master=self.app) #master means what frame is the widject sitting on, in this case it is the app
+        self.label = customtkinter.CTkLabel(master=self.frame, text='Login', font=('inter', 32)) #however in this case it is the subframe.
+        self.UsernameTextbox = customtkinter.CTkEntry(master=self.frame, placeholder_text='Username')
+        self.PasswordTextbox = customtkinter.CTkEntry(master=self.frame, placeholder_text='Password', show = "•") #hiding the inputs
+        self.LoginButton = customtkinter.CTkButton(master=self.frame, text='login', command=self.Retrieve_Pwd_And_User_Input)
+
+        #Below is the initialising of the widjets into the app
+
+        self.frame.pack(pady=20, padx=60, fill = 'both', expand = 'true')
+        self.label.pack(pady = 20, padx = 10)
+        self.UsernameTextbox.pack(pady = 12, padx = 10)
+        self.PasswordTextbox.pack(pady = 12, padx = 10)
+        self.LoginButton.pack(pady = 13, padx = 10)
+
+    def transition_to_success_page(self):
+        # Hide or destroy the login frame
+        self.frame.pack_forget()
+
+        # Instantiate the SuccessPage class within the same application window
+        SuccessPage(self.app)
+
+
+
+    def Retrieve_Pwd_And_User_Input(self):
+        UsernameInput = self.UsernameTextbox.get()
+        UsernamePassword = self.PasswordTextbox.get()
+
+        if UsernameInput in self.user:
+            self.block = 1
+        if UsernamePassword in self.password:
+            self.block = 2
+        if self.block ==2:
+            self.transition_to_success_page()
+    
+    def run(self):
+        self.app.mainloop()
+
+class SuccessPage:
+    def __init__(self, master):
+        self.app = master  # Use the existing application window passed as 'master'
+
+        # Create a frame for the success message
+        self.frame = customtkinter.CTkFrame(master=self.app)
+        self.label = customtkinter.CTkLabel(master=self.frame, text="Access Granted", font=('Inter', 32))
+
+        # Display the success frame and label
+        self.frame.pack(pady=20, padx=60, fill='both', expand=True)
+        self.label.pack(pady=20, padx=10)
+
+    
+
+if __name__ == '__main__': #This checks if the program is running, and then executes the app
+
+    login_page = LoginPage() #creating the object of login page from the original blueprint
+    login_page.run() #now it is an object, we can utilise the run() method
+        
