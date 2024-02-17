@@ -102,15 +102,16 @@ class fruit_and_veg():
             self.score +=1
             print("your score is", self.score)
         else:
+            self.score -=1
             print('not correct', self.score, 'is your score')
         if self.score == 20:
             self.process = False
-            print('well done, you have completed the test')
+            print('well done, you have completed the test with a score of', self.score,'/20')
         
             
 
 is_process_running = True
-current_score = 20
+current_score = 0
 
 while is_process_running == True:
     random_fruit_and_veg = fruit_and_veg(current_score, is_process_running)
